@@ -1,7 +1,5 @@
 package com.sumant.springboot.learning.restapitest;
 
-import com.sun.tools.javac.comp.Resolve;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

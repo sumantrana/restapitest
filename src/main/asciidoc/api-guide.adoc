@@ -1,0 +1,3 @@
+include::{snippets}/book/http-request.adoc[]
+
+include::{snippets}/book/http-response.adoc[]

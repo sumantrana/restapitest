@@ -18,4 +18,9 @@ public class BookController {
     public Book getBook(@RequestParam(name="name", required = true) String bookName){
         return bookService.getBook(bookName);
     }
+
+    @GetMapping(path = "/defaultBook")
+    public Book getDefaultBook(){
+        return Book.builder().name("DefaultBook").value(25).build();
+    }
 }
