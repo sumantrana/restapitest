@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -21,7 +22,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @WebMvcTest
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BookControllerTest {
 
     private MockMvc mockMvc;
@@ -29,9 +29,10 @@ public class BookControllerTest {
     @MockBean
     private BookService bookService;
 
-    @BeforeAll
+
+    @BeforeEach
     public void setup(){
-        initMocks(this);
+        //initMocks(this);
         BookController bookController = new BookController(bookService);
         mockMvc = MockMvcBuilders.standaloneSetup(bookController).build();
     }

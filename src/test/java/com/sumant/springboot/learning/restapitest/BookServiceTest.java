@@ -23,7 +23,7 @@ public class BookServiceTest {
 
     @BeforeAll
     public void setup(){
-        initMocks(this);
+        //initMocks(this);
         bookService = new BookService(bookRepository);
     }
 

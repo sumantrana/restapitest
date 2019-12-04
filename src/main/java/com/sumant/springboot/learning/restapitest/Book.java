@@ -1,5 +1,6 @@
 package com.sumant.springboot.learning.restapitest;
 
+import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
