@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "Book")
-public class BookData {
+public class BookEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

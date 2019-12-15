@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface BookRepository extends JpaRepository<BookData, Integer> {
+public interface BookRepository extends JpaRepository<BookEntity, Integer> {
 
-    Optional<BookData> findBookDataByName( String name );
+    Optional<BookEntity> findBookDataByName(String name );
 }

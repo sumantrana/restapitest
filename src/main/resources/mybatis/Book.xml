@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sumant.springboot.learning.restapitest.BookMybatisRepository">
+    <insert id="insert" parameterType="BookEntity" useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
+        insert into TB_BOOK (Name, Value)
+        VALUES (#{name}, #{value})
+    </insert>
+</mapper>

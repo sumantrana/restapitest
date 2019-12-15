@@ -1,6 +1,5 @@
 package com.sumant.springboot.learning.restapitest;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +22,10 @@ public class BookRepositoryTest {
 
     @Test
     public void save_WillPersistBook(){
-        BookData book = BookData.builder().name("DatabaseBook").value(20).build();
+        BookEntity book = BookEntity.builder().name("DatabaseBook").value(20).build();
         bookRepository.save(book);
 
-        Optional<BookData> returnedBook = bookRepository.findBookDataByName(book.getName());
+        Optional<BookEntity> returnedBook = bookRepository.findBookDataByName(book.getName());
 
         assertThat(returnedBook).isNotEmpty();
         assertThat(returnedBook.get()).isEqualTo(book);
