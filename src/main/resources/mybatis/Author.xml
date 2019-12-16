@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sumant.springboot.learning.restapitest.AuthorMybatisRepository">
+
+    <resultMap id="resultAuthor" type="AuthorEntity">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <result property="book" column="book"/>
+        <collection property="titleList" column="id" javaType="ArrayList" ofType="TitleEntity"
+                    select="com.sumant.springboot.learning.restapitest.TitleMybatisRepository.findByAuthor" />
+    </resultMap>
+
+    <insert id="insert" parameterType="AuthorEntity" useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
+        insert into TB_AUTHOR (Name, Age, Book)
+        VALUES (#{name}, #{age}, #{book})
+    </insert>
+
+    <select id="findByBook" parameterType="int" resultMap="resultAuthor">
+   		SELECT id, name, age, book FROM TB_AUTHOR WHERE book = #{id}
+    </select>
+
+</mapper>

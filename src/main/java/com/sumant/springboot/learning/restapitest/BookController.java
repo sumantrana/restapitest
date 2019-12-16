@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 @RestController
 @Api(value = "Book Management System", description = "Operations pertaining to book in Book Management System")
 public class BookController {
@@ -18,11 +20,11 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @GetMapping(path="/book")
-    @ApiOperation(value="Get a book basis name", response = Book.class)
-    public Book getBook(@ApiParam(value = "Name of the book to get the details", required = true) @RequestParam(name="name", required = true) String bookName){
-        return bookService.getBook(bookName);
-    }
+//    @GetMapping(path="/book")
+//    @ApiOperation(value="Get a book basis name", response = Book.class)
+//    public Book getBook(@ApiParam(value = "Name of the book to get the details", required = true) @RequestParam(name="name", required = true) String bookName){
+//        return bookService.getBook(bookName);
+//    }
 
     @GetMapping(path = "/defaultBook")
     public Book getDefaultBook(){
@@ -38,5 +40,11 @@ public class BookController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    @GetMapping(path="/books/{id}")
+    @ApiOperation(value="Get a book basis name", response = Book.class)
+    public Book getBookForId(@PathVariable("id") int id){
+        return bookService.findBookById(id);
     }
 }

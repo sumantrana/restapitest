@@ -37,17 +37,17 @@ public class BookControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(bookController).build();
     }
 
-    @Test
-    public void getBook_WillReturn_Book() throws Exception {
-
-        Book book = Book.builder().name("TestName").value(10).build();
-        given(bookService.getBook("TestName")).willReturn(book);
-
-        mockMvc.perform(get("/book").param("name", "TestName"))
-                .andExpect(jsonPath("$.name", is("TestName")))
-                .andExpect(jsonPath("$.value", is(10)));
-
-        verify(bookService, times(1)).getBook(anyString());
-
-    }
+//    @Test
+//    public void getBook_WillReturn_Book() throws Exception {
+//
+//        Book book = Book.builder().name("TestName").value(10).build();
+//        given(bookService.getBook("TestName")).willReturn(book);
+//
+//        mockMvc.perform(get("/book").param("name", "TestName"))
+//                .andExpect(jsonPath("$.name", is("TestName")))
+//                .andExpect(jsonPath("$.value", is(10)));
+//
+//        verify(bookService, times(1)).getBook(anyString());
+//
+//    }
 }

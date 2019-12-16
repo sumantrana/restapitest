@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
 
@@ -29,14 +27,14 @@ public class BookE2ETest {
 
     @BeforeAll
     public void setup(){
-        BookEntity bookData = BookEntity.builder().name("E2EBook").value(50).build();
+        BookJpaEntity bookData = BookJpaEntity.builder().name("E2EBook").value(50).build();
         bookRepository.saveAndFlush(bookData);
     }
 
     @Test
     public void getBook_WillReturn_SavedBook(){
 
-        Optional<BookEntity> bookData = bookRepository.findBookDataByName("E2EBook");
+        Optional<BookJpaEntity> bookData = bookRepository.findBookDataByName("E2EBook");
         assertThat(bookData.isPresent());
 
         Book book = testRestTemplate.getForObject("http://localhost:" + port + "/book?name=E2EBook", Book.class);

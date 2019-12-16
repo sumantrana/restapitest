@@ -22,10 +22,10 @@ public class BookRepositoryTest {
 
     @Test
     public void save_WillPersistBook(){
-        BookEntity book = BookEntity.builder().name("DatabaseBook").value(20).build();
+        BookJpaEntity book = BookJpaEntity.builder().name("DatabaseBook").value(20).build();
         bookRepository.save(book);
 
-        Optional<BookEntity> returnedBook = bookRepository.findBookDataByName(book.getName());
+        Optional<BookJpaEntity> returnedBook = bookRepository.findBookDataByName(book.getName());
 
         assertThat(returnedBook).isNotEmpty();
         assertThat(returnedBook.get()).isEqualTo(book);

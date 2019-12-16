@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sumant.springboot.learning.restapitest.BookMybatisRepository">
+
+    <resultMap id="resultBook" type="BookEntity">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="value" column="value"/>
+        <collection property="authorList" column="id" javaType="ArrayList" ofType="AuthorEntity"
+                    select="com.sumant.springboot.learning.restapitest.AuthorMybatisRepository.findByBook" />
+    </resultMap>
+
     <insert id="insert" parameterType="BookEntity" useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
         insert into TB_BOOK (Name, Value)
         VALUES (#{name}, #{value})
     </insert>
+
+    <select id="findById" parameterType="int" resultMap="resultBook">
+   		SELECT id, name, value FROM TB_BOOK WHERE id = #{id}
+    </select>
+
+
 </mapper>

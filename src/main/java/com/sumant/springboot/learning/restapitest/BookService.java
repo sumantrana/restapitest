@@ -1,33 +1,38 @@
 package com.sumant.springboot.learning.restapitest;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
-import java.util.Optional;
 
 @Service
 public class BookService {
 
-    private BookRepository bookRepository;
+    //private BookRepository bookRepository;
     private BookMybatisRepository bookMybatisRepository;
+    private AuthorMybatisRepository authorMybatisRepository;
+    private TitleMybatisRepository titleMybatisRepository;
 
-    public BookService(BookRepository bookRepository, BookMybatisRepository bookMybatisRepository) {
-        this.bookRepository = bookRepository;
+
+    public BookService(BookMybatisRepository bookMybatisRepository,
+                       AuthorMybatisRepository authorMybatisRepository,
+                       TitleMybatisRepository titleMybatisRepository
+    ) {
+        //this.bookRepository = bookRepository;
         this.bookMybatisRepository = bookMybatisRepository;
+        this.authorMybatisRepository = authorMybatisRepository;
+        this.titleMybatisRepository = titleMybatisRepository;
     }
 
-    public Book getBook(String name) {
-        Optional<BookEntity> bookData = bookRepository.findBookDataByName(name);
-        if ( bookData.isPresent() ){
-            Book book = new Book();
-            BeanUtils.copyProperties(bookData.get(), book);
-            return book;
-        }
-        return null;
-    }
+//    public Book getBook(String name) {
+//        Optional<BookEntity> bookData = bookRepository.findBookDataByName(name);
+//        if ( bookData.isPresent() ){
+//            Book book = new Book();
+//            BeanUtils.copyProperties(bookData.get(), book);
+//            return book;
+//        }
+//        return null;
+//    }
 
     /**
      *
@@ -62,6 +67,15 @@ public class BookService {
 
     }
 
+    public Book findBookById(int id){
+
+        BookEntity bookEntity = bookMybatisRepository.findById(id);
+
+        System.out.println(bookEntity);
+
+        return BookEntity.toDomain(bookEntity);
+    }
+
 
     private long createBooks(Book book) throws Exception {
 
@@ -70,12 +84,17 @@ public class BookService {
             BookEntity bookEntity = BookEntity.builder().name(book.getName()).value(book.getValue()).build();
             bookMybatisRepository.insert(bookEntity);
 
-            BookEntity bookEntityDuplicate = BookEntity.builder().value(book.getValue()).build();
-            bookMybatisRepository.insert(bookEntityDuplicate);
+            AuthorEntity authorEntity = AuthorEntity.builder().name("Sumant").age(40).book(bookEntity.getId()).build();
+            authorMybatisRepository.insert(authorEntity);
 
-            return bookEntityDuplicate.getId();
+            TitleEntity titleEntity = TitleEntity.builder().name("SumantTitle").author(authorEntity.getId()).build();
+            titleMybatisRepository.insert(titleEntity);
+
+
+            return bookEntity.getId();
 
         } catch (Exception exp){
+            exp.printStackTrace();
             throw new SQLException("Exception while inserting book data");
         }
 

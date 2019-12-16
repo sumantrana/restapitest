@@ -1,6 +1,5 @@
 package com.sumant.springboot.learning.restapitest;
 
-import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,11 +11,12 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Builder
-public class Book {
+public class Author {
 
-    private int id;
-    private String name;
-    private long value;
+    int id;
+    String name;
+    long age;
 
-    List<Author> authorList;
+    List<Title> titleList;
+    int book;
 }

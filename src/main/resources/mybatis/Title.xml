@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sumant.springboot.learning.restapitest.TitleMybatisRepository">
+
+    <insert id="insert" parameterType="TitleEntity" useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
+        insert into TB_TITLE (Name, Author)
+        VALUES (#{name}, #{author})
+    </insert>
+
+    <select id="findByAuthor" parameterType="int" resultType="TitleEntity">
+   		SELECT id, name, author FROM TB_TITLE WHERE author = #{id}
+    </select>
+
+</mapper>

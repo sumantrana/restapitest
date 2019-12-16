@@ -8,5 +8,9 @@ public interface BookMybatisRepository {
 
     long insert(BookEntity book);
 
+    long insertAuthor(AuthorEntity author);
+
+    BookEntity findById(int id);
+
 }
 

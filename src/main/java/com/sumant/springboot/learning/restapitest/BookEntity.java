@@ -6,13 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-@Entity
-@Table(name = "Book")
 public class BookEntity {
 
     @Id
@@ -21,4 +21,25 @@ public class BookEntity {
     private String name;
     private long value;
 
+    List<AuthorEntity> authorList;
+
+    public static Book toDomain(BookEntity bookEntity){
+
+        Book book = Book.builder().id(bookEntity.getId()).name(bookEntity.getName()).value(bookEntity.getValue()).build();
+
+        if ( bookEntity.getAuthorList() != null && bookEntity.getAuthorList().size() > 0 ) {
+
+            book.setAuthorList(new ArrayList<Author>());
+            for (AuthorEntity authorEntity : bookEntity.getAuthorList()) {
+
+                book.getAuthorList().add(AuthorEntity.toDomain(authorEntity));
+
+
+
+            }
+        }
+
+        return book;
+
+    }
 }
